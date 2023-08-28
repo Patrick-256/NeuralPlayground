@@ -43,8 +43,11 @@ public class NeuralPlayground extends JFrame implements Observer {
         create.add(label);
 
         JMenu edit = new JMenu("Edit");
+        JMenuItem move = new JMenuItem("Move");
         JMenuItem clear = new JMenuItem("Clear");
+        move.addActionListener(menuBarControlHandler);
         clear.addActionListener(menuBarControlHandler);
+        edit.add(move);
         edit.add(clear);
 
         menuBar.add(file);

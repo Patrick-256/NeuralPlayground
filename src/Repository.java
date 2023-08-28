@@ -1,4 +1,3 @@
-import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -76,6 +75,41 @@ public class Repository extends Observable {
             }
         }
         return center;
+    }
+
+    public boolean setCenterLocationOfEntity(int x, int y) {
+        boolean success = false;
+        for (Drawable d : drawables) {
+            if(d instanceof Entity) {
+                if(x < ((Entity) d).getShape().getxPos() + ((Entity) d).getShape().getWidth() &&
+                        x > ((Entity) d).getShape().getxPos() &&
+                        y < ((Entity) d).getShape().getyPos() + ((Entity) d).getShape().getWidth() &&
+                        y > ((Entity) d).getShape().getyPos()) {
+
+                    ((Entity) d).getShape().setCenterPoint(x,y);
+                    this.setChanged();
+                    this.notifyObservers();
+                    success = true;
+                }
+            }
+            if(d instanceof Line) {
+                if(withinRange(x,y,((Line) d).getStartX(),((Line) d).getStartY(),10)) {
+                    ((Line) d).setStartX(x);
+                    ((Line) d).setStartY(y);
+                    success = true;
+                }
+                if(withinRange(x,y,((Line) d).getDestinationX(),((Line) d).getDestinationY(),10)) {
+                    ((Line) d).setDestinationX(x);
+                    ((Line) d).setDestinationY(y);
+                    success = true;
+                }
+            }
+        }
+        return success;
+    }
+    private boolean withinRange(int x1,int y1,int x2,int y2,int range) {
+        if(Math.abs(x1-x2) < range && Math.abs(y1-y2) < range) return true;
+        return false;
     }
 
     public void setPreviewDrawable(Drawable d) {

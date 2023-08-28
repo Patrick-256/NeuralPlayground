@@ -35,8 +35,12 @@ public class MenuBarControlHandler implements ActionListener {
             case "Label":
                 repo.setCurrentMode("label");
                 break;
+            case "Move":
+                repo.setCurrentMode("move");
+                break;
             case "Clear":
                 repo.removeAllDrawables();
+                repo.setCurrentMode(null);
                 break;
         }
     }

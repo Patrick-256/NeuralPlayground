@@ -30,8 +30,21 @@ public abstract class Shape implements Drawable {
         return xPos;
     }
 
+    public void setxPos(int x) {
+        this.xPos = x;
+    }
+
     public int getyPos() {
         return yPos;
+    }
+
+    public void setyPos(int y) {
+        this.yPos = y;
+    }
+
+    public void setCenterPoint(int x, int y) {
+        this.xPos = x - this.width/2;
+        this.yPos = y - this.height/2;
     }
 
     public int getWidth() {
